@@ -1,0 +1,17 @@
+.connexion {
+    .el-card {
+        margin-top: 40px;
+    }
+    .el-button {
+        background-color: $color-blue;
+        padding: 10px 60px;
+    }
+    .el-input {
+        width: 300px;
+    }
+    a {
+        font-size: 12px;
+        color: $color-black;
+        text-decoration: none;
+    }
+}

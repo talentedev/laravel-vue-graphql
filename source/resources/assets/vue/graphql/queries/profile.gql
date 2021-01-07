@@ -1,0 +1,12 @@
+query profile {
+    profile {
+        id
+        email
+        nom
+        prenom
+        birthday
+        gender
+        telephone
+        nationality
+    }
+}

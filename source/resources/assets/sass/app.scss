@@ -1,0 +1,19 @@
+//bootstrap
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/utilities";
+@import "~bootstrap/scss/type";
+@import "~bootstrap/scss/grid";
+
+// config
+@import "config/_colors";
+
+// custom
+@import "custom/_button";
+
+// theme
+@import "theme/main";
+
+// components
+@import "components/auth";

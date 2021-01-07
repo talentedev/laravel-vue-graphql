@@ -1,0 +1,15 @@
+body {
+    background-image: url(/images/Background.png);
+    background-size: cover;
+    color: $color-black;
+}
+.logo {
+    width: 35px;
+    margin: 10px 50px;
+}
+.btn-login {
+    float: right;
+    margin: 30px 30px 0 0 !important;
+    background-color: $color-black !important;
+    color: white !important;
+}

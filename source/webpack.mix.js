@@ -12,5 +12,17 @@ const mix = require('laravel-mix');
  */
 
 mix
+    .options({
+        processCssUrls: false,
+    })
     .js('resources/assets/vue/app.js', 'public/js')
-    .sass('resources/assets/sass/app.scss', 'public/css');
+    .sass('resources/assets/sass/app.scss', 'public/css')
+    .webpackConfig({
+        module: {
+            rules: [{
+                test: /\.(graphql|gql)$/,
+                loader: 'graphql-tag/loader',
+                exclude: /node_modules/,
+            }],
+        },
+    });
