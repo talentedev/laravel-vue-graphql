@@ -4,7 +4,14 @@ import VueRouter from 'vue-router';
 import store from '../store';
 import Home from '../views/Home';
 import Connexion from '../views/Connexion';
-import Main from '../views/Main';
+import Admin from '../views/Admin';
+import Student from '../views/Student';
+import Applications from '../views/admin/Applications';
+import Schools from '../views/admin/Schools';
+import Trainings from '../views/admin/Trainings';
+import News from '../views/admin/News';
+import Messages from '../views/admin/Messages';
+import MyFile from '../views/admin/File';
 
 Vue.use(VueRouter);
 
@@ -21,8 +28,22 @@ let router = new VueRouter({
             component: Connexion,
         },
         {
-            path: '/home',
-            component:Main,
+            path: '/admin',
+            component: Admin,
+            meta: { requiresAuth: true, requiresAdmin: true },
+            children: [
+                { path: '', redirect: 'applications' },
+                { path: 'file', component: MyFile },
+                { path: 'applications', component: Applications },
+                { path: 'schools', component: Schools },
+                { path: 'tranings', component: Trainings },
+                { path: 'news', component: News },
+                { path: 'messages', component: Messages }
+            ]
+        },
+        {
+            path: '/student',
+            component: Student,
             meta: { requiresAuth: true }
         }
     ]
@@ -45,6 +66,18 @@ router.beforeEach((to, from, next) => {
         }
     } else {
         next(); // make sure to always call next()!
+    }
+
+    if (to.matched.some(record => record.meta.requiresAdmin)) {
+        if (store.getters['security/isAdmin']) {
+            next();
+        } else {
+            next({
+                path: '/student',
+            });
+        }
+    } else {
+        next();
     }
 });
 

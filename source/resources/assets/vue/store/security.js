@@ -7,6 +7,7 @@ export default {
         isLoading: false,
         error: null,
         isAuthenticated: false,
+        user: null,
         token: null,
     },
     getters: {
@@ -16,14 +17,17 @@ export default {
         hasError (state) {
             return state.error !== null;
         },
-        error (state) {
-            return state.error;
-        },
         isAuthenticated (state) {
             return state.isAuthenticated;
         },
+        getUser (state) {
+            return state.user;
+        },
         token (state) {
-            return state.roles;
+            return state.token;
+        },
+        isAdmin (state) {
+            return state.user && (state.user.role == 'super admin' || state.user.role == 'school admin');
         }
     },
     mutations: {
@@ -31,6 +35,7 @@ export default {
             state.isLoading = false;
             state.error = null;
             state.isAuthenticated = false;
+            state.user = null;
             state.token = null;
             localStorage.setItem('default_auth_token', state.token);
         },
@@ -38,6 +43,7 @@ export default {
             state.isLoading = true;
             state.error = null;
             state.isAuthenticated = false;
+            state.user = null;
             state.token = null;
             localStorage.setItem('default_auth_token', state.token);
         },
@@ -45,20 +51,23 @@ export default {
             state.isLoading = false;
             state.error = null;
             state.isAuthenticated = true;
-            state.token = payload.access_token;
+            state.user = payload.user;
+            state.token = payload.token;
             localStorage.setItem('default_auth_token', state.token);
         },
         ['AUTHENTICATING_ERROR'](state, error) {
             state.isLoading = false;
             state.error = error;
             state.isAuthenticated = false;
+            state.user = null;
             state.token = null;
             localStorage.setItem('default_auth_token', state.token);
         },
         ['PROVIDING_DATA_ON_REFRESH_SUCCESS'](state, payload) {
             state.isLoading = false;
             state.error = null;
-            state.isAuthenticated = payload.isAuthenticated;
+            state.isAuthenticated = true;
+            state.user = payload.user;
             state.token = payload.access_token;
             localStorage.setItem('default_auth_token', state.token);
         }
@@ -74,14 +83,11 @@ export default {
             commit('RESET');
             return SecurityAPI.logout();
         },
-        onRefresh({commit}, payload) {
+        onRefresh({commit}) {
             commit('PROVIDING_DATA_ON_REFRESH_SUCCESS', payload);
         },
         confirmPassword ({commit}, payload) {
             return SecurityAPI.confirmPassword(payload.token, payload.password);
-        },
-        updateUtilisateur({commit}, payload) {
-            commit('UPDATE_UTILISATEUR', payload);
         }
     },
 }

@@ -9,15 +9,15 @@
                     <h2>Connexion</h2>
                 </div>
                 <el-row class="d-flex justify-content-center">
-                    <el-alert
-                        v-if="hasError"
-                        class="mb-3"
-                        title="Login / Mot de passe incorrect"
-                        type="error"
-                        show-icon
-                        :closable="false">
-                    </el-alert>
                     <el-form :model="credentials" label-width="100px" label-position="left" ref="loginForm">
+                        <el-alert
+                            v-if="hasError"
+                            class="mb-3"
+                            title="Login / Mot de passe incorrect"
+                            type="error"
+                            show-icon
+                            :closable="false">
+                        </el-alert>
                         <el-form-item
                             label="Login"
                             prop="email"
@@ -74,7 +74,11 @@ export default {
                             if (typeof redirect !== "undefined") {
                                 this.$router.push({ path: redirect });
                             } else {
-                                this.$router.push({ path: "/home" });
+                                if (this.$store.getters['security/isAdmin']) {
+                                    this.$router.push({ path: "/admin" });
+                                } else {
+                                    this.$router.push({ path: "/student" });
+                                }
                             }
                         }
                     });

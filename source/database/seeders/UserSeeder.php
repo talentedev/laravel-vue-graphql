@@ -19,7 +19,8 @@ class UserSeeder extends Seeder
             'password' => bcrypt('secret'),
             'gender' => 1,
             'nom' => 'Super',
-            'prenom' => "Admin"
+            'prenom' => "Admin",
+            'role' => 'super admin'
         ]);
 
         User::create([
@@ -27,7 +28,8 @@ class UserSeeder extends Seeder
             'password' => bcrypt('secret'),
             'gender' => 1,
             'nom' => 'School',
-            'prenom' => "Admin"
+            'prenom' => "Admin",
+            'role' => 'school admin'
         ]);
 
         User::create([
@@ -35,7 +37,8 @@ class UserSeeder extends Seeder
             'password' => bcrypt('secret'),
             'gender' => 1,
             'nom' => 'Student',
-            'prenom' => "User"
+            'prenom' => "User",
+            'role' => 'student'
         ]);
     }
 }

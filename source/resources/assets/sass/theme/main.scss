@@ -2,6 +2,8 @@ body {
     background-image: url(/images/Background.png);
     background-size: cover;
     color: $color-black;
+    margin: 0;
+    font-family: 'Gotham';
 }
 .logo {
     width: 35px;

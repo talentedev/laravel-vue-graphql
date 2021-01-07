@@ -38,6 +38,7 @@ class ProfileQuery extends Query
         return [
             'id' => ['name' => 'id', 'type' => Type::int()],
             'email' => ['name' => 'email', 'type' => Type::string()],
+            'role' => ['name' => 'role', 'type' => Type::string()],
             'nom' => ['name' => 'nom', 'type' => Type::string()],
             'prenom' => ['name' => 'prenom', 'type' => Type::string()],
             'gender' => ['name' => 'gender', 'type' => Type::int()],

@@ -27,6 +27,11 @@ const apolloProvider = new VueApollo({
 Vue.use(VueApollo);
 Vue.use(ElementUI, { locale });
 
+import AdminWrapper from "./components/layouts/AdminWrapper";
+import StudentWrapper from "./components/layouts/StudentWrapper";
+Vue.component('admin-wrapper', AdminWrapper);
+Vue.component('student-wrapper', StudentWrapper);
+
 new Vue({
     el: '#app',
     router,

@@ -5101,10 +5101,16 @@ mark,
     margin-left: 91.6666666667%;
   }
 }
+@font-face {
+  font-family: "Gotham";
+  src: url(/fonts/Gotham.otf);
+}
 body {
   background-image: url(/images/Background.png);
   background-size: cover;
   color: #34495E;
+  margin: 0;
+  font-family: "Gotham";
 }
 
 .logo {
@@ -5133,4 +5139,41 @@ body {
   font-size: 12px;
   color: #34495E;
   text-decoration: none;
+}
+
+.el-aside {
+  height: 100vh;
+  padding: 5px 0 5px 20px;
+}
+.el-aside .side-bar {
+  padding-top: 30px;
+  background-color: #0559AA;
+  border-radius: 15px;
+  height: -webkit-fill-available;
+}
+.el-aside .side-bar .el-menu {
+  background-color: transparent;
+  margin-left: 20px;
+  border: none;
+}
+.el-aside .side-bar .el-menu .el-menu-item, .el-aside .side-bar .el-menu .el-submenu__title {
+  height: 40px;
+  line-height: 40px;
+  transition: none;
+  color: white;
+  padding-left: 5px !important;
+}
+.el-aside .side-bar .el-menu .el-menu-item:focus, .el-aside .side-bar .el-menu .el-menu-item:hover, .el-aside .side-bar .el-menu .el-submenu__title:focus, .el-aside .side-bar .el-menu .el-submenu__title:hover {
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  color: #34495E;
+}
+.el-aside .side-bar .el-menu .el-menu-item.is-active i, .el-aside .side-bar .el-menu .el-submenu__title.is-active i {
+  color: #909399;
+}
+.el-aside .side-bar .el-menu .current {
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  color: #34495E;
+  background-color: white;
 }
