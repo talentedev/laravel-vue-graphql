@@ -28,6 +28,12 @@ export default {
         },
         isAdmin (state) {
             return state.user && (state.user.role == 'super admin' || state.user.role == 'school admin');
+        },
+        isSuperAdmin (state) {
+            return state.user && state.user.role == 'super admin';
+        },
+        isSchoolAdmin (state) {
+            return state.user && state.user.role == 'school admin';
         }
     },
     mutations: {
@@ -80,8 +86,8 @@ export default {
                 .catch(err => commit('AUTHENTICATING_ERROR', err));
         },
         logout ({ commit }) {
-            commit('RESET');
-            return SecurityAPI.logout();
+            return SecurityAPI.logout()
+                .then(res => commit('RESET'));
         },
         onRefresh({commit}) {
             commit('PROVIDING_DATA_ON_REFRESH_SUCCESS', payload);

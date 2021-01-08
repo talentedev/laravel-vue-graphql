@@ -1,0 +1,8 @@
+.nav-bar {
+    font-size: 12px;
+    padding-top: 2rem !important;
+    .el-menu--horizontal>.el-submenu .el-submenu__title:hover,
+    .el-menu--horizontal>.el-menu-item:not(.is-disabled):hover {
+        background-color: transparent;
+    }
+}

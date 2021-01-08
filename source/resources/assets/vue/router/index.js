@@ -11,7 +11,9 @@ import Schools from '../views/admin/Schools';
 import Trainings from '../views/admin/Trainings';
 import News from '../views/admin/News';
 import Messages from '../views/admin/Messages';
-import MyFile from '../views/admin/File';
+import Dashboard from '../views/admin/Dashboard';
+import School from '../views/admin/School';
+import Administrators from '../views/admin/Administrators';
 
 Vue.use(VueRouter);
 
@@ -32,11 +34,13 @@ let router = new VueRouter({
             component: Admin,
             meta: { requiresAuth: true, requiresAdmin: true },
             children: [
-                { path: '', redirect: 'applications' },
-                { path: 'file', component: MyFile },
+                { path: '', redirect: 'dashboard' },
+                { path: 'dashboard', component: Dashboard },
                 { path: 'applications', component: Applications },
                 { path: 'schools', component: Schools },
+                { path: 'school-profile', component: School },
                 { path: 'tranings', component: Trainings },
+                { path: 'administrators', component: Administrators },
                 { path: 'news', component: News },
                 { path: 'messages', component: Messages }
             ]
@@ -57,7 +61,17 @@ router.beforeEach((to, from, next) => {
         // this route requires auth, check if logged in
         // if not, redirect to login page.
         if (store.getters['security/isAuthenticated']) {
-            next();
+            if (to.matched.some(record => record.meta.requiresAdmin)) {
+                if (store.getters['security/isAdmin']) {
+                    next();
+                } else {
+                    next({
+                        path: '/student'
+                    });
+                }
+            } else {
+                next();
+            }
         } else {
             next({
                 path: '/connexion',
@@ -66,18 +80,6 @@ router.beforeEach((to, from, next) => {
         }
     } else {
         next(); // make sure to always call next()!
-    }
-
-    if (to.matched.some(record => record.meta.requiresAdmin)) {
-        if (store.getters['security/isAdmin']) {
-            next();
-        } else {
-            next({
-                path: '/student',
-            });
-        }
-    } else {
-        next();
     }
 });
 

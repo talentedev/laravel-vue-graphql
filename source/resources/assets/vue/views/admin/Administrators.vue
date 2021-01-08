@@ -1,9 +1,9 @@
 <template>
-    <p>My File</p>
+    <p>Administrators list</p>
 </template>
 
 <script>
 export default {
-    name: 'file'
+    name: 'administrators'
 }
 </script>

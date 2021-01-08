@@ -12,7 +12,11 @@ export default {
         );
     },
     logout () {
-        return axios.post('/api/security/logout');
+        return axios.get('/api/security/logout', {
+            header: {
+                Authorization: `Bearer ${localStorage.getItem('default_auth_token')}`,
+            }
+        });
     },
     confirmPassword (token, password) {
         return axios.post(
