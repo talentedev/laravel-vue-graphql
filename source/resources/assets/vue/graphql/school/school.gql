@@ -1,0 +1,10 @@
+query school($id: Int!) {
+    school(id: $id) {
+        id
+        name
+        description
+        information
+        video
+        active
+    }
+}

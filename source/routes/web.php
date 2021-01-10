@@ -15,3 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/{any}', [HomeController::class, 'index'])->where('any', '.*');
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'graphql'
+], function ($router) {
+
+});

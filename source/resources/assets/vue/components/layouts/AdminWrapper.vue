@@ -4,8 +4,11 @@
             <side-bar></side-bar>
         </el-aside>
         <el-container>
-            <el-main>
-                <slot></slot>
+            <el-main style="padding: 50px 50px 20px 30px;">
+                <Breadcrumbs></Breadcrumbs>
+                <el-card style="height: 95%;">
+                    <slot></slot>
+                </el-card>
             </el-main>
         </el-container>
     </el-container>
@@ -13,11 +16,13 @@
 
 <script>
 import SideBar from './SideBar';
+import Breadcrumbs from '../partials/Breadcrumb';
 
 export default {
     name: 'AdminWrapper',
     components: {
-        SideBar
+        SideBar,
+        Breadcrumbs
     }
 }
 </script>

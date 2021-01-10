@@ -1,10 +1,6 @@
 <template>
     <admin-wrapper>
-        <el-container>
-            <el-main>
-                <router-view></router-view>
-            </el-main>
-        </el-container>
+        <router-view></router-view>
     </admin-wrapper>
 </template>
 

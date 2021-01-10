@@ -9101,6 +9101,10 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SideBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SideBar */ "./resources/assets/vue/components/layouts/SideBar.vue");
+/* harmony import */ var _partials_Breadcrumb__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../partials/Breadcrumb */ "./resources/assets/vue/components/partials/Breadcrumb.vue");
+//
+//
+//
 //
 //
 //
@@ -9115,10 +9119,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'AdminWrapper',
   components: {
-    SideBar: _SideBar__WEBPACK_IMPORTED_MODULE_0__["default"]
+    SideBar: _SideBar__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Breadcrumbs: _partials_Breadcrumb__WEBPACK_IMPORTED_MODULE_1__["default"]
   }
 });
 
@@ -9324,10 +9330,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/vue/views/Admin.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/vue/views/Admin.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/vue/components/partials/Breadcrumb.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/vue/components/partials/Breadcrumb.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -9337,6 +9343,104 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "Breadcrumb",
+  data: function data() {
+    return {
+      currentPath: null,
+      bcItems: [],
+      bcLabel: {
+        'dashboard': 'Dashboard',
+        'schools': 'Schools',
+        'trainings': 'Trainings',
+        'news': 'News'
+      }
+    };
+  },
+  created: function created() {
+    this.currentPath = this.$route.path;
+    this.analyzePath();
+  },
+  watch: {
+    $route: function $route(to, from) {
+      this.currentPath = to.path;
+      this.analyzePath();
+    }
+  },
+  methods: {
+    analyzeName: function analyzeName(str) {
+      var res = str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
+      res = res.replace(/-/g, ' ');
+      return res;
+    },
+    analyzePath: function analyzePath() {
+      var _this = this;
+
+      if (this.currentPath) {
+        var arr = this.currentPath.split('/');
+        var filteredArr = arr.filter(function (name) {
+          return name !== "" && name !== '/';
+        });
+        this.bcItems = filteredArr.map(function (path) {
+          var index = _this.currentPath.indexOf(path);
+
+          var name = path;
+
+          if (path !== _this.$route.params.id) {
+            name = _this.bcLabel[path] || _this.analyzeName(path);
+          }
+
+          return {
+            name: name,
+            path: _this.currentPath.substr(0, index + path.length)
+          };
+        });
+
+        if (this.bcItems.length > 1) {
+          this.handleId();
+        }
+      }
+    },
+    handleId: function handleId() {
+      var _this2 = this;
+
+      if (this.bcItems) {
+        if (this.bcItems.length === 1) {
+          this.bcItems[0].path = this.bcItems[1].path;
+          this.bcItems[1].name = "Dashboard";
+        } else if (this.bcItems.length > 1) {
+          this.bcItems[0].path = this.bcItems[1].path;
+          this.bcItems = this.bcItems.filter(function (item) {
+            return item.name !== _this2.$route.params.id;
+          });
+        }
+      }
+    },
+    handleRouteError: function handleRouteError(event, path) {
+      if (path === this.$route.path) {
+        event.stopPropagation();
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/vue/views/Admin.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/vue/views/Admin.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
 //
 //
 //
@@ -9631,12 +9735,125 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_validation_rules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/validation-rules */ "./resources/assets/vue/utils/validation-rules.js");
 //
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'school'
+  name: 'School',
+  data: function data() {
+    return {
+      schoolID: null,
+      school: {
+        name: '',
+        description: '',
+        information: '',
+        active: false
+      },
+      rules: {
+        name: [_utils_validation_rules__WEBPACK_IMPORTED_MODULE_1__["default"].getRule("requiredNoWhitespaces"), _utils_validation_rules__WEBPACK_IMPORTED_MODULE_1__["default"].getRule("maxVarchar")]
+      }
+    };
+  },
+  computed: {
+    isCreation: function isCreation() {
+      return lodash__WEBPACK_IMPORTED_MODULE_0___default.a.isNil(this.$route.params.id);
+    }
+  },
+  created: function created() {
+    this.schoolID = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.isNil(this.$route.params.id) ? null : parseInt(this.$route.params.id);
+
+    if (lodash__WEBPACK_IMPORTED_MODULE_0___default.a.isNil(this.schoolID)) {
+      return;
+    }
+
+    this.getSchool(this.schoolID);
+  },
+  methods: {
+    getSchool: function getSchool(schoolID) {
+      var _this = this;
+
+      var loading = this.$loading({
+        lock: true
+      });
+      this.$apollo.query({
+        query: __webpack_require__(/*! ../../graphql/school/school.gql */ "./resources/assets/vue/graphql/school/school.gql"),
+        variables: {
+          id: schoolID
+        }
+      }).then(function (response) {
+        if (response && response.data) {
+          _this.school = response.data.school;
+        }
+      })["finally"](function () {
+        loading.close();
+      });
+    },
+    submitForm: function submitForm(formName) {
+      var _this2 = this;
+
+      this.$refs[formName].validate(function (valid) {
+        if (valid) {
+          var loading = _this2.$loading({
+            lock: true
+          });
+
+          _this2.$apollo.mutate({
+            mutation: __webpack_require__(/*! ../../graphql/school/saveSchool.gql */ "./resources/assets/vue/graphql/school/saveSchool.gql"),
+            variables: {
+              input: {
+                id: _this2.schoolID,
+                name: _this2.school.name,
+                description: _this2.school.description,
+                information: _this2.school.information,
+                video: '',
+                active: _this2.school.active
+              }
+            }
+          }).then(function () {
+            _this2.$router.push("/admin/schools");
+          })["finally"](function () {
+            loading.close();
+          });
+        }
+      });
+    },
+    goBack: function goBack() {
+      this.$router.push("/admin/schools");
+    }
+  }
 });
 
 /***/ }),
@@ -9650,12 +9867,75 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Schools'
+  name: 'Schools',
+  methods: {
+    tableData: function tableData(data) {
+      if (!lodash__WEBPACK_IMPORTED_MODULE_0___default.a.isNil(data)) {
+        return data.fetchSchools;
+      } else {
+        return [];
+      }
+    },
+    handleEdit: function handleEdit(index, row) {
+      this.$router.push("/admin/schools/detail/" + row.id);
+    },
+    handleDelete: function handleDelete(index, row) {
+      var _this = this;
+
+      this.$confirm('Are you sure to delete it?').then(function () {
+        _this.$apollo.mutate({
+          mutation: __webpack_require__(/*! ../../graphql/school/deleteSchool.gql */ "./resources/assets/vue/graphql/school/deleteSchool.gql"),
+          variables: {
+            id: row.id
+          }
+        }).then(function () {
+          _this.$router.go(0);
+        });
+      });
+    },
+    createSchool: function createSchool() {
+      this.$router.push("/admin/schools/detail");
+    }
+  }
 });
 
 /***/ }),
@@ -96671,7 +96951,27 @@ var render = function() {
     [
       _c("el-aside", { attrs: { width: "240px" } }, [_c("side-bar")], 1),
       _vm._v(" "),
-      _c("el-container", [_c("el-main", [_vm._t("default")], 2)], 1)
+      _c(
+        "el-container",
+        [
+          _c(
+            "el-main",
+            { staticStyle: { padding: "50px 50px 20px 30px" } },
+            [
+              _c("Breadcrumbs"),
+              _vm._v(" "),
+              _c(
+                "el-card",
+                { staticStyle: { height: "95%" } },
+                [_vm._t("default")],
+                2
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
     ],
     1
   )
@@ -97067,6 +97367,57 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/vue/components/partials/Breadcrumb.vue?vue&type=template&id=9e767818&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/vue/components/partials/Breadcrumb.vue?vue&type=template&id=9e767818& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "el-breadcrumb",
+    { staticStyle: { margin: "0 0 10px 0" }, attrs: { separator: "/" } },
+    [
+      _vm.bcItems.length === 1
+        ? _c("el-breadcrumb-item", { attrs: { to: { path: "/dashboard" } } }, [
+            _vm._v("Administration")
+          ])
+        : _vm._l(_vm.bcItems, function(item) {
+            return [
+              _c("el-breadcrumb-item", { attrs: { to: { path: item.path } } }, [
+                _c(
+                  "span",
+                  {
+                    on: {
+                      click: function($event) {
+                        return _vm.handleRouteError($event, item.path)
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(item.name))]
+                )
+              ])
+            ]
+          })
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/vue/views/Admin.vue?vue&type=template&id=16a45bf1&":
 /*!***********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/vue/views/Admin.vue?vue&type=template&id=16a45bf1& ***!
@@ -97082,11 +97433,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "admin-wrapper",
-    [_c("el-container", [_c("el-main", [_c("router-view")], 1)], 1)],
-    1
-  )
+  return _c("admin-wrapper", [_c("router-view")], 1)
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -97493,7 +97840,147 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("p", [_vm._v("My School")])
+  return _c(
+    "div",
+    [
+      _c(
+        "el-form",
+        {
+          ref: "schoolForm",
+          attrs: { model: _vm.school, "label-width": "120px", rules: _vm.rules }
+        },
+        [
+          _c(
+            "el-form-item",
+            { attrs: { label: "Name", prop: "name" } },
+            [
+              _c("el-input", {
+                attrs: { type: "text", autocomplete: "off" },
+                model: {
+                  value: _vm.school.name,
+                  callback: function($$v) {
+                    _vm.$set(_vm.school, "name", $$v)
+                  },
+                  expression: "school.name"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-form-item",
+            { attrs: { label: "Description", prop: "description" } },
+            [
+              _c("el-input", {
+                attrs: {
+                  type: "textarea",
+                  autosize: { minRows: 5, maxRows: 10 },
+                  autocomplete: "off"
+                },
+                model: {
+                  value: _vm.school.description,
+                  callback: function($$v) {
+                    _vm.$set(_vm.school, "description", $$v)
+                  },
+                  expression: "school.description"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-form-item",
+            { attrs: { label: "Other information", prop: "information" } },
+            [
+              _c("el-input", {
+                attrs: {
+                  type: "textarea",
+                  autosize: { minRows: 5, maxRows: 10 },
+                  autocomplete: "off"
+                },
+                model: {
+                  value: _vm.school.information,
+                  callback: function($$v) {
+                    _vm.$set(_vm.school, "information", $$v)
+                  },
+                  expression: "school.information"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-form-item",
+            { attrs: { label: "Status", prop: "active" } },
+            [
+              _c(
+                "el-checkbox",
+                {
+                  model: {
+                    value: _vm.school.active,
+                    callback: function($$v) {
+                      _vm.$set(_vm.school, "active", $$v)
+                    },
+                    expression: "school.active"
+                  }
+                },
+                [_vm._v("Active")]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("el-form-item", [
+            _c(
+              "div",
+              { staticClass: "d-flex justify-content-end mt-4" },
+              [
+                _c(
+                  "el-button",
+                  {
+                    attrs: { plein: "" },
+                    on: {
+                      click: function($event) {
+                        return _vm.goBack()
+                      }
+                    }
+                  },
+                  [_vm._v("Go Back")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-button",
+                  {
+                    attrs: { type: "primary" },
+                    on: {
+                      click: function($event) {
+                        return _vm.submitForm("schoolForm")
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(
+                          _vm.isCreation ? "Create school" : "Update school"
+                        ) +
+                        "\n            "
+                    )
+                  ]
+                )
+              ],
+              1
+            )
+          ])
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -97517,7 +98004,173 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("p", [_vm._v("Schools list")])
+  return _c(
+    "div",
+    { staticClass: "schools text-center" },
+    [
+      _c("h2", [_vm._v("Schools")]),
+      _vm._v(" "),
+      _c("ApolloQuery", {
+        attrs: { query: __webpack_require__(/*! ../../graphql/school/schools.gql */ "./resources/assets/vue/graphql/school/schools.gql") },
+        scopedSlots: _vm._u([
+          {
+            key: "default",
+            fn: function(ref) {
+              var ref_result = ref.result
+              var loading = ref_result.loading
+              var error = ref_result.error
+              var data = ref_result.data
+              var isLoading = ref.isLoading
+              return [
+                error
+                  ? _c("div", [_vm._v("Une erreur est survenue !")])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "el-table",
+                  {
+                    directives: [
+                      {
+                        name: "loading",
+                        rawName: "v-loading",
+                        value: isLoading === 1,
+                        expression: "isLoading === 1"
+                      }
+                    ],
+                    staticStyle: { width: "100%" },
+                    attrs: { data: _vm.tableData(data) }
+                  },
+                  [
+                    _c("el-table-column", {
+                      attrs: {
+                        "column-key": "name",
+                        prop: "name",
+                        label: "Name"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("el-table-column", {
+                      attrs: {
+                        "column-key": "description",
+                        prop: "description",
+                        label: "Description"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("el-table-column", {
+                      attrs: {
+                        "column-key": "information",
+                        prop: "information",
+                        label: "Information"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("el-table-column", {
+                      attrs: {
+                        "column-key": "active",
+                        prop: "active",
+                        label: "Status",
+                        width: "80px",
+                        align: "center"
+                      },
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "default",
+                            fn: function(scope) {
+                              return [
+                                scope.row.active == true
+                                  ? _c("i", {
+                                      staticClass:
+                                        "el-icon-circle-check h4 text-success"
+                                    })
+                                  : _c("i", {
+                                      staticClass:
+                                        "el-icon-circle-close h4 text-danger"
+                                    })
+                              ]
+                            }
+                          }
+                        ],
+                        null,
+                        true
+                      )
+                    }),
+                    _vm._v(" "),
+                    _c("el-table-column", {
+                      attrs: { width: "180px" },
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "default",
+                            fn: function(scope) {
+                              return [
+                                _c(
+                                  "el-button",
+                                  {
+                                    staticClass: "ml-0",
+                                    attrs: { size: "mini", type: "primary" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.handleEdit(
+                                          scope.$index,
+                                          scope.row
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Edit")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "el-button",
+                                  {
+                                    staticClass: "ml-0",
+                                    attrs: { size: "mini", type: "danger" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.handleDelete(
+                                          scope.$index,
+                                          scope.row
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Delete")]
+                                )
+                              ]
+                            }
+                          }
+                        ],
+                        null,
+                        true
+                      )
+                    })
+                  ],
+                  1
+                )
+              ]
+            }
+          }
+        ])
+      }),
+      _vm._v(" "),
+      _c(
+        "el-button",
+        {
+          staticClass: "mt-2",
+          attrs: { type: "primary" },
+          on: {
+            click: function($event) {
+              return _vm.createSchool()
+            }
+          }
+        },
+        [_vm._v("Create a school")]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -114913,16 +115566,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var element_ui_lib_theme_chalk_index_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(element_ui_lib_theme_chalk_index_css__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var apollo_boost__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! apollo-boost */ "./node_modules/apollo-boost/lib/bundle.esm.js");
 /* harmony import */ var vue_apollo__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-apollo */ "./node_modules/vue-apollo/dist/vue-apollo.esm.js");
-/* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./App.vue */ "./resources/assets/vue/App.vue");
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./router */ "./resources/assets/vue/router/index.js");
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./store */ "./resources/assets/vue/store/index.js");
-/* harmony import */ var _components_layouts_AdminWrapper__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/layouts/AdminWrapper */ "./resources/assets/vue/components/layouts/AdminWrapper.vue");
-/* harmony import */ var _components_layouts_StudentWrapper__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/layouts/StudentWrapper */ "./resources/assets/vue/components/layouts/StudentWrapper.vue");
+/* harmony import */ var apollo_link_error__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! apollo-link-error */ "./node_modules/apollo-link-error/lib/bundle.esm.js");
+/* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./App.vue */ "./resources/assets/vue/App.vue");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./router */ "./resources/assets/vue/router/index.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./store */ "./resources/assets/vue/store/index.js");
+/* harmony import */ var _components_layouts_AdminWrapper__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/layouts/AdminWrapper */ "./resources/assets/vue/components/layouts/AdminWrapper.vue");
+/* harmony import */ var _components_layouts_StudentWrapper__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/layouts/StudentWrapper */ "./resources/assets/vue/components/layouts/StudentWrapper.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 
 
@@ -114959,7 +115614,13 @@ var apolloClient = new apollo_boost__WEBPACK_IMPORTED_MODULE_5__["default"]({
     }
 
     return request;
-  }()
+  }(),
+  // defaultOptions: {
+  //   fetchPolicy: 'no-cache'
+  // }
+  onError: function onError(err) {
+    console.log(err);
+  }
 });
 var apolloProvider = new vue_apollo__WEBPACK_IMPORTED_MODULE_6__["default"]({
   defaultClient: apolloClient
@@ -114970,15 +115631,15 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(element_ui__WEBPACK_IMPORTED_MODU
 });
 
 
-vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('admin-wrapper', _components_layouts_AdminWrapper__WEBPACK_IMPORTED_MODULE_10__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('student-wrapper', _components_layouts_StudentWrapper__WEBPACK_IMPORTED_MODULE_11__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('admin-wrapper', _components_layouts_AdminWrapper__WEBPACK_IMPORTED_MODULE_11__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('student-wrapper', _components_layouts_StudentWrapper__WEBPACK_IMPORTED_MODULE_12__["default"]);
 new vue__WEBPACK_IMPORTED_MODULE_1___default.a({
   el: '#app',
-  router: _router__WEBPACK_IMPORTED_MODULE_8__["default"],
-  store: _store__WEBPACK_IMPORTED_MODULE_9__["default"],
+  router: _router__WEBPACK_IMPORTED_MODULE_9__["default"],
+  store: _store__WEBPACK_IMPORTED_MODULE_10__["default"],
   apolloProvider: apolloProvider,
   render: function render(h) {
-    return h(_App_vue__WEBPACK_IMPORTED_MODULE_7__["default"]);
+    return h(_App_vue__WEBPACK_IMPORTED_MODULE_8__["default"]);
   }
 });
 
@@ -115260,6 +115921,607 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/assets/vue/components/partials/Breadcrumb.vue":
+/*!*****************************************************************!*\
+  !*** ./resources/assets/vue/components/partials/Breadcrumb.vue ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Breadcrumb_vue_vue_type_template_id_9e767818___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Breadcrumb.vue?vue&type=template&id=9e767818& */ "./resources/assets/vue/components/partials/Breadcrumb.vue?vue&type=template&id=9e767818&");
+/* harmony import */ var _Breadcrumb_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Breadcrumb.vue?vue&type=script&lang=js& */ "./resources/assets/vue/components/partials/Breadcrumb.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Breadcrumb_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Breadcrumb_vue_vue_type_template_id_9e767818___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Breadcrumb_vue_vue_type_template_id_9e767818___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/assets/vue/components/partials/Breadcrumb.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/vue/components/partials/Breadcrumb.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************!*\
+  !*** ./resources/assets/vue/components/partials/Breadcrumb.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Breadcrumb_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Breadcrumb.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/vue/components/partials/Breadcrumb.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Breadcrumb_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/vue/components/partials/Breadcrumb.vue?vue&type=template&id=9e767818&":
+/*!************************************************************************************************!*\
+  !*** ./resources/assets/vue/components/partials/Breadcrumb.vue?vue&type=template&id=9e767818& ***!
+  \************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Breadcrumb_vue_vue_type_template_id_9e767818___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Breadcrumb.vue?vue&type=template&id=9e767818& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/vue/components/partials/Breadcrumb.vue?vue&type=template&id=9e767818&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Breadcrumb_vue_vue_type_template_id_9e767818___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Breadcrumb_vue_vue_type_template_id_9e767818___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/assets/vue/graphql/school/deleteSchool.gql":
+/*!**************************************************************!*\
+  !*** ./resources/assets/vue/graphql/school/deleteSchool.gql ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"deleteSchool"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},"directives":[]}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteSchool"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"status"},"arguments":[],"directives":[]}]}}]}}],"loc":{"start":0,"end":86}};
+    doc.loc.source = {"body":"mutation deleteSchool($id: Int!) {\n    deleteSchool(id: $id) {\n        status\n    }\n}\n","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
+  
+
+    var names = {};
+    function unique(defs) {
+      return defs.filter(
+        function(def) {
+          if (def.kind !== 'FragmentDefinition') return true;
+          var name = def.name.value
+          if (names[name]) {
+            return false;
+          } else {
+            names[name] = true;
+            return true;
+          }
+        }
+      )
+    }
+  
+
+    // Collect any fragment/type references from a node, adding them to the refs Set
+    function collectFragmentReferences(node, refs) {
+      if (node.kind === "FragmentSpread") {
+        refs.add(node.name.value);
+      } else if (node.kind === "VariableDefinition") {
+        var type = node.type;
+        if (type.kind === "NamedType") {
+          refs.add(type.name.value);
+        }
+      }
+
+      if (node.selectionSet) {
+        node.selectionSet.selections.forEach(function(selection) {
+          collectFragmentReferences(selection, refs);
+        });
+      }
+
+      if (node.variableDefinitions) {
+        node.variableDefinitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+
+      if (node.definitions) {
+        node.definitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+    }
+
+    var definitionRefs = {};
+    (function extractReferences() {
+      doc.definitions.forEach(function(def) {
+        if (def.name) {
+          var refs = new Set();
+          collectFragmentReferences(def, refs);
+          definitionRefs[def.name.value] = refs;
+        }
+      });
+    })();
+
+    function findOperation(doc, name) {
+      for (var i = 0; i < doc.definitions.length; i++) {
+        var element = doc.definitions[i];
+        if (element.name && element.name.value == name) {
+          return element;
+        }
+      }
+    }
+
+    function oneQuery(doc, operationName) {
+      // Copy the DocumentNode, but clear out the definitions
+      var newDoc = {
+        kind: doc.kind,
+        definitions: [findOperation(doc, operationName)]
+      };
+      if (doc.hasOwnProperty("loc")) {
+        newDoc.loc = doc.loc;
+      }
+
+      // Now, for the operation we're running, find any fragments referenced by
+      // it or the fragments it references
+      var opRefs = definitionRefs[operationName] || new Set();
+      var allRefs = new Set();
+      var newRefs = new Set();
+
+      // IE 11 doesn't support "new Set(iterable)", so we add the members of opRefs to newRefs one by one
+      opRefs.forEach(function(refName) {
+        newRefs.add(refName);
+      });
+
+      while (newRefs.size > 0) {
+        var prevRefs = newRefs;
+        newRefs = new Set();
+
+        prevRefs.forEach(function(refName) {
+          if (!allRefs.has(refName)) {
+            allRefs.add(refName);
+            var childRefs = definitionRefs[refName] || new Set();
+            childRefs.forEach(function(childRef) {
+              newRefs.add(childRef);
+            });
+          }
+        });
+      }
+
+      allRefs.forEach(function(refName) {
+        var op = findOperation(doc, refName);
+        if (op) {
+          newDoc.definitions.push(op);
+        }
+      });
+
+      return newDoc;
+    }
+
+    module.exports = doc;
+    
+        module.exports["deleteSchool"] = oneQuery(doc, "deleteSchool");
+        
+
+
+/***/ }),
+
+/***/ "./resources/assets/vue/graphql/school/saveSchool.gql":
+/*!************************************************************!*\
+  !*** ./resources/assets/vue/graphql/school/saveSchool.gql ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"saveSchool"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SchoolInput"}}},"directives":[]}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"saveSchool"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"name"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"description"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"information"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"video"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"active"},"arguments":[],"directives":[]}]}}]}}],"loc":{"start":0,"end":177}};
+    doc.loc.source = {"body":"mutation saveSchool($input: SchoolInput!) {\n    saveSchool(input: $input) {\n        id\n        name\n        description\n        information\n        video\n        active\n    }\n}\n","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
+  
+
+    var names = {};
+    function unique(defs) {
+      return defs.filter(
+        function(def) {
+          if (def.kind !== 'FragmentDefinition') return true;
+          var name = def.name.value
+          if (names[name]) {
+            return false;
+          } else {
+            names[name] = true;
+            return true;
+          }
+        }
+      )
+    }
+  
+
+    // Collect any fragment/type references from a node, adding them to the refs Set
+    function collectFragmentReferences(node, refs) {
+      if (node.kind === "FragmentSpread") {
+        refs.add(node.name.value);
+      } else if (node.kind === "VariableDefinition") {
+        var type = node.type;
+        if (type.kind === "NamedType") {
+          refs.add(type.name.value);
+        }
+      }
+
+      if (node.selectionSet) {
+        node.selectionSet.selections.forEach(function(selection) {
+          collectFragmentReferences(selection, refs);
+        });
+      }
+
+      if (node.variableDefinitions) {
+        node.variableDefinitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+
+      if (node.definitions) {
+        node.definitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+    }
+
+    var definitionRefs = {};
+    (function extractReferences() {
+      doc.definitions.forEach(function(def) {
+        if (def.name) {
+          var refs = new Set();
+          collectFragmentReferences(def, refs);
+          definitionRefs[def.name.value] = refs;
+        }
+      });
+    })();
+
+    function findOperation(doc, name) {
+      for (var i = 0; i < doc.definitions.length; i++) {
+        var element = doc.definitions[i];
+        if (element.name && element.name.value == name) {
+          return element;
+        }
+      }
+    }
+
+    function oneQuery(doc, operationName) {
+      // Copy the DocumentNode, but clear out the definitions
+      var newDoc = {
+        kind: doc.kind,
+        definitions: [findOperation(doc, operationName)]
+      };
+      if (doc.hasOwnProperty("loc")) {
+        newDoc.loc = doc.loc;
+      }
+
+      // Now, for the operation we're running, find any fragments referenced by
+      // it or the fragments it references
+      var opRefs = definitionRefs[operationName] || new Set();
+      var allRefs = new Set();
+      var newRefs = new Set();
+
+      // IE 11 doesn't support "new Set(iterable)", so we add the members of opRefs to newRefs one by one
+      opRefs.forEach(function(refName) {
+        newRefs.add(refName);
+      });
+
+      while (newRefs.size > 0) {
+        var prevRefs = newRefs;
+        newRefs = new Set();
+
+        prevRefs.forEach(function(refName) {
+          if (!allRefs.has(refName)) {
+            allRefs.add(refName);
+            var childRefs = definitionRefs[refName] || new Set();
+            childRefs.forEach(function(childRef) {
+              newRefs.add(childRef);
+            });
+          }
+        });
+      }
+
+      allRefs.forEach(function(refName) {
+        var op = findOperation(doc, refName);
+        if (op) {
+          newDoc.definitions.push(op);
+        }
+      });
+
+      return newDoc;
+    }
+
+    module.exports = doc;
+    
+        module.exports["saveSchool"] = oneQuery(doc, "saveSchool");
+        
+
+
+/***/ }),
+
+/***/ "./resources/assets/vue/graphql/school/school.gql":
+/*!********************************************************!*\
+  !*** ./resources/assets/vue/graphql/school/school.gql ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"school"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},"directives":[]}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"school"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"name"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"description"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"information"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"video"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"active"},"arguments":[],"directives":[]}]}}]}}],"loc":{"start":0,"end":148}};
+    doc.loc.source = {"body":"query school($id: Int!) {\n    school(id: $id) {\n        id\n        name\n        description\n        information\n        video\n        active\n    }\n}","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
+  
+
+    var names = {};
+    function unique(defs) {
+      return defs.filter(
+        function(def) {
+          if (def.kind !== 'FragmentDefinition') return true;
+          var name = def.name.value
+          if (names[name]) {
+            return false;
+          } else {
+            names[name] = true;
+            return true;
+          }
+        }
+      )
+    }
+  
+
+    // Collect any fragment/type references from a node, adding them to the refs Set
+    function collectFragmentReferences(node, refs) {
+      if (node.kind === "FragmentSpread") {
+        refs.add(node.name.value);
+      } else if (node.kind === "VariableDefinition") {
+        var type = node.type;
+        if (type.kind === "NamedType") {
+          refs.add(type.name.value);
+        }
+      }
+
+      if (node.selectionSet) {
+        node.selectionSet.selections.forEach(function(selection) {
+          collectFragmentReferences(selection, refs);
+        });
+      }
+
+      if (node.variableDefinitions) {
+        node.variableDefinitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+
+      if (node.definitions) {
+        node.definitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+    }
+
+    var definitionRefs = {};
+    (function extractReferences() {
+      doc.definitions.forEach(function(def) {
+        if (def.name) {
+          var refs = new Set();
+          collectFragmentReferences(def, refs);
+          definitionRefs[def.name.value] = refs;
+        }
+      });
+    })();
+
+    function findOperation(doc, name) {
+      for (var i = 0; i < doc.definitions.length; i++) {
+        var element = doc.definitions[i];
+        if (element.name && element.name.value == name) {
+          return element;
+        }
+      }
+    }
+
+    function oneQuery(doc, operationName) {
+      // Copy the DocumentNode, but clear out the definitions
+      var newDoc = {
+        kind: doc.kind,
+        definitions: [findOperation(doc, operationName)]
+      };
+      if (doc.hasOwnProperty("loc")) {
+        newDoc.loc = doc.loc;
+      }
+
+      // Now, for the operation we're running, find any fragments referenced by
+      // it or the fragments it references
+      var opRefs = definitionRefs[operationName] || new Set();
+      var allRefs = new Set();
+      var newRefs = new Set();
+
+      // IE 11 doesn't support "new Set(iterable)", so we add the members of opRefs to newRefs one by one
+      opRefs.forEach(function(refName) {
+        newRefs.add(refName);
+      });
+
+      while (newRefs.size > 0) {
+        var prevRefs = newRefs;
+        newRefs = new Set();
+
+        prevRefs.forEach(function(refName) {
+          if (!allRefs.has(refName)) {
+            allRefs.add(refName);
+            var childRefs = definitionRefs[refName] || new Set();
+            childRefs.forEach(function(childRef) {
+              newRefs.add(childRef);
+            });
+          }
+        });
+      }
+
+      allRefs.forEach(function(refName) {
+        var op = findOperation(doc, refName);
+        if (op) {
+          newDoc.definitions.push(op);
+        }
+      });
+
+      return newDoc;
+    }
+
+    module.exports = doc;
+    
+        module.exports["school"] = oneQuery(doc, "school");
+        
+
+
+/***/ }),
+
+/***/ "./resources/assets/vue/graphql/school/schools.gql":
+/*!*********************************************************!*\
+  !*** ./resources/assets/vue/graphql/school/schools.gql ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"fetchSchools"},"variableDefinitions":[],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fetchSchools"},"arguments":[],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"name"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"description"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"information"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"video"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"active"},"arguments":[],"directives":[]}]}}]}}],"loc":{"start":0,"end":140}};
+    doc.loc.source = {"body":"query fetchSchools {\n    fetchSchools {\n        id\n        name\n        description\n        information\n        video\n        active\n    }\n}","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
+  
+
+    var names = {};
+    function unique(defs) {
+      return defs.filter(
+        function(def) {
+          if (def.kind !== 'FragmentDefinition') return true;
+          var name = def.name.value
+          if (names[name]) {
+            return false;
+          } else {
+            names[name] = true;
+            return true;
+          }
+        }
+      )
+    }
+  
+
+    // Collect any fragment/type references from a node, adding them to the refs Set
+    function collectFragmentReferences(node, refs) {
+      if (node.kind === "FragmentSpread") {
+        refs.add(node.name.value);
+      } else if (node.kind === "VariableDefinition") {
+        var type = node.type;
+        if (type.kind === "NamedType") {
+          refs.add(type.name.value);
+        }
+      }
+
+      if (node.selectionSet) {
+        node.selectionSet.selections.forEach(function(selection) {
+          collectFragmentReferences(selection, refs);
+        });
+      }
+
+      if (node.variableDefinitions) {
+        node.variableDefinitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+
+      if (node.definitions) {
+        node.definitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+    }
+
+    var definitionRefs = {};
+    (function extractReferences() {
+      doc.definitions.forEach(function(def) {
+        if (def.name) {
+          var refs = new Set();
+          collectFragmentReferences(def, refs);
+          definitionRefs[def.name.value] = refs;
+        }
+      });
+    })();
+
+    function findOperation(doc, name) {
+      for (var i = 0; i < doc.definitions.length; i++) {
+        var element = doc.definitions[i];
+        if (element.name && element.name.value == name) {
+          return element;
+        }
+      }
+    }
+
+    function oneQuery(doc, operationName) {
+      // Copy the DocumentNode, but clear out the definitions
+      var newDoc = {
+        kind: doc.kind,
+        definitions: [findOperation(doc, operationName)]
+      };
+      if (doc.hasOwnProperty("loc")) {
+        newDoc.loc = doc.loc;
+      }
+
+      // Now, for the operation we're running, find any fragments referenced by
+      // it or the fragments it references
+      var opRefs = definitionRefs[operationName] || new Set();
+      var allRefs = new Set();
+      var newRefs = new Set();
+
+      // IE 11 doesn't support "new Set(iterable)", so we add the members of opRefs to newRefs one by one
+      opRefs.forEach(function(refName) {
+        newRefs.add(refName);
+      });
+
+      while (newRefs.size > 0) {
+        var prevRefs = newRefs;
+        newRefs = new Set();
+
+        prevRefs.forEach(function(refName) {
+          if (!allRefs.has(refName)) {
+            allRefs.add(refName);
+            var childRefs = definitionRefs[refName] || new Set();
+            childRefs.forEach(function(childRef) {
+              newRefs.add(childRef);
+            });
+          }
+        });
+      }
+
+      allRefs.forEach(function(refName) {
+        var op = findOperation(doc, refName);
+        if (op) {
+          newDoc.definitions.push(op);
+        }
+      });
+
+      return newDoc;
+    }
+
+    module.exports = doc;
+    
+        module.exports["fetchSchools"] = oneQuery(doc, "fetchSchools");
+        
+
+
+/***/ }),
+
 /***/ "./resources/assets/vue/router/index.js":
 /*!**********************************************!*\
   !*** ./resources/assets/vue/router/index.js ***!
@@ -115328,6 +116590,9 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     }, {
       path: 'schools',
       component: _views_admin_Schools__WEBPACK_IMPORTED_MODULE_8__["default"]
+    }, {
+      path: 'schools/detail/:id?',
+      component: _views_admin_School__WEBPACK_IMPORTED_MODULE_13__["default"]
     }, {
       path: 'school-profile',
       component: _views_admin_School__WEBPACK_IMPORTED_MODULE_13__["default"]
@@ -115535,6 +116800,157 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }
 });
+
+/***/ }),
+
+/***/ "./resources/assets/vue/utils/validation-rules.js":
+/*!********************************************************!*\
+  !*** ./resources/assets/vue/utils/validation-rules.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var customValidator = {
+  // Use rules when you need specifics rules (ex: you need taux validation but not need to be a required field)
+  rules: {
+    required: {
+      required: true,
+      message: 'Ce champs est obligatoire',
+      trigger: 'blur'
+    },
+    requiredNoWhitespaces: {
+      required: true,
+      whitespace: true,
+      message: 'Ce champs est obligatoire',
+      trigger: 'blur'
+    },
+    positiveInt: {
+      pattern: /^\d{1,9}$/,
+      message: 'Ce champs est invalide',
+      trigger: 'blur'
+    },
+    positiveDouble: {
+      pattern: /^\d{1,12}(\.\d{1,10})?$/,
+      message: 'Ce champs est invalide',
+      trigger: 'blur'
+    },
+    taux: {
+      pattern: /^(?:100|(?:\d{2}|[0-9])(?:\.\d{1,3})?)$/,
+      message: 'Le taux doit être compris entre 0 et 100',
+      trigger: 'blur'
+    },
+    maxVarchar: {
+      max: 255,
+      message: 'Ce champs ne peut excéder 255 caractères',
+      trigger: 'blur'
+    },
+    maxLongtext: {
+      max: 100000,
+      message: 'Ce champs excède le nombre de caractères maximum autorisé',
+      trigger: 'blur'
+    },
+    phone: {
+      pattern: /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/,
+      message: 'Merci de renseigner un numéro de téléphone',
+      trigger: 'blur'
+    },
+    email: {
+      type: 'email',
+      message: 'Le format de l\'adresse e-mail est invalide',
+      trigger: 'blur'
+    },
+    siren: {
+      required: true,
+      pattern: /[0-9\s]{11}/,
+      message: 'Merci de renseigner un SIREN valide',
+      trigger: 'blur'
+    },
+    codeEntite: {
+      required: true,
+      pattern: /[A-Z0-9]{5}/,
+      message: 'Merci de renseigner un code valide',
+      trigger: 'blur'
+    }
+  },
+  // Preset validators as required
+  preset: {
+    taux: [{
+      required: true,
+      message: 'Ce champs est obligatoire',
+      trigger: 'blur'
+    }, {
+      pattern: /^(?:(0|100)|(?:\d{2}|[0-9])(?:\.\d{1,3})?)$/,
+      message: 'Le taux doit être compris entre 0 et 100',
+      trigger: 'change'
+    }],
+    differe: [{
+      required: true,
+      message: 'Ce champs est obligatoire',
+      trigger: 'blur'
+    }, {
+      pattern: /^\d{1,3}$/,
+      message: 'Ce champs est invalide',
+      trigger: 'blur'
+    }],
+    number: {
+      positiveInt: [{
+        required: true,
+        message: 'Ce champs est obligatoire',
+        trigger: 'blur'
+      }, {
+        pattern: /^\d{1,7}$/,
+        message: 'Ce champs est invalide',
+        trigger: 'blur'
+      }],
+      positiveDouble: [{
+        required: true,
+        message: 'Ce champs est obligatoire',
+        trigger: 'blur'
+      }, {
+        pattern: /^\d{1,12}(\.\d{1,10})?$/,
+        message: 'Ce champs est invalide',
+        trigger: 'blur'
+      }],
+      positiveDoubleNotRequired: [{
+        pattern: /^\d{1,12}(\.\d{1,10})?$/,
+        message: 'Ce champs est invalide',
+        trigger: 'blur'
+      }]
+    }
+  },
+  getRule: function getRule(name, event) {
+    if (name) {
+      var rule = customValidator.rules[name];
+      event = typeof event !== 'undefined' ? event : 'blur';
+      rule.trigger = event;
+      return Object.assign({}, rule);
+    }
+
+    return null;
+  },
+  getPreset: function getPreset(name) {
+    /** This method can get only 3 depth level of an object
+     * example -> name =  number.positiveInt.somethingElse (maximum)
+     * Refactor this one if you need more depth
+     **/
+    if (name) {
+      if (customValidator.preset[name]) {
+        return customValidator.preset[name];
+      } else if (name.includes('.')) {
+        var arr = name.split('.');
+
+        if (arr.length && arr.length <= 3) {
+          return arr.length === 2 ? customValidator.preset[arr[0]][arr[1]] : customValidator.preset[arr[0]][arr[1]][arr[2]];
+        }
+      }
+    }
+
+    return null;
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (customValidator);
 
 /***/ }),
 

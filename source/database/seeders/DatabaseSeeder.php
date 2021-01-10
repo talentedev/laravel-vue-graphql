@@ -6,6 +6,9 @@ use Illuminate\Database\Seeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\NationSeeder;
 use Database\Seeders\RoleSeeder;
+use Database\Seeders\FieldSeeder;
+use Database\Seeders\SchoolSeeder;
+use Database\Seeders\TrainingSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,6 +23,9 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             NationSeeder::class,
+            FieldSeeder::class,
+            SchoolSeeder::class,
+            TrainingSeeder::class
         ]);
     }
 }

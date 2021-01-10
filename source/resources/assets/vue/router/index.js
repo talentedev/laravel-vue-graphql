@@ -38,6 +38,7 @@ let router = new VueRouter({
                 { path: 'dashboard', component: Dashboard },
                 { path: 'applications', component: Applications },
                 { path: 'schools', component: Schools },
+                { path: 'schools/detail/:id?', component: School },
                 { path: 'school-profile', component: School },
                 { path: 'tranings', component: Trainings },
                 { path: 'administrators', component: Administrators },

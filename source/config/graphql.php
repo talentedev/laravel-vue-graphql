@@ -101,10 +101,13 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-                'profile' => App\GraphQL\Queries\ProfileQuery::class
+                'profile' => App\GraphQL\Queries\ProfileQuery::class,
+                'fetchSchools' => App\GraphQL\Queries\SchoolsQuery::class,
+                'school' => App\GraphQL\Queries\SchoolQuery::class
             ],
             'mutation' => [
-                // 'example_mutation'  => ExampleMutation::class,
+                'saveSchool' => App\GraphQL\Mutations\SaveSchoolMutation::class,
+                'deleteSchool' => App\GraphQL\Mutations\DeleteSchoolMutation::class
             ],
             'middleware' => ['auth'],
             'method' => ['get', 'post'],
@@ -121,7 +124,9 @@ return [
     // ]
     //
     'types' => [
-        'user' => App\GraphQL\Types\UserType::class
+        'User' => App\GraphQL\Types\UserType::class,
+        'School' => App\GraphQL\Types\SchoolType::class,
+        'SchoolInput' => App\GraphQL\Types\SchoolInputType::class
     ],
 
     // The types will be loaded on demand. Default is to load all types on each request

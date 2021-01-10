@@ -1,0 +1,5 @@
+mutation deleteSchool($id: Int!) {
+    deleteSchool(id: $id) {
+        status
+    }
+}

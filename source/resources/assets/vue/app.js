@@ -6,6 +6,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 
 import ApolloClient from 'apollo-boost';
 import VueApollo from 'vue-apollo';
+import { onError } from 'apollo-link-error';
 
 import App from './App.vue';
 import router from './router';
@@ -18,6 +19,12 @@ const apolloClient = new ApolloClient({
         Authorization: `Bearer ${localStorage.getItem('default_auth_token')}`,
       },
     });
+  },
+  // defaultOptions: {
+  //   fetchPolicy: 'no-cache'
+  // }
+  onError(err) {
+    console.log(err)
   },
 });
 const apolloProvider = new VueApollo({

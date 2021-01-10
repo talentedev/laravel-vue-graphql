@@ -1,0 +1,10 @@
+query fetchSchools {
+    fetchSchools {
+        id
+        name
+        description
+        information
+        video
+        active
+    }
+}

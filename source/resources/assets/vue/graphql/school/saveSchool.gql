@@ -1,0 +1,10 @@
+mutation saveSchool($input: SchoolInput!) {
+    saveSchool(input: $input) {
+        id
+        name
+        description
+        information
+        video
+        active
+    }
+}

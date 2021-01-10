@@ -9,7 +9,7 @@ use App\Models\User;
 class UserType extends GraphQLType
 {
     protected $attributes = [
-        'name' => 'user',
+        'name' => 'User',
         'description' => 'A user.',
         'model' => User::class,
     ];
