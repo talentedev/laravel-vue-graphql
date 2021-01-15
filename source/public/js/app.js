@@ -9253,6 +9253,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'sidebar',
   data: function data() {
@@ -9644,8 +9648,54 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'administrators'
+  name: 'administrators',
+  methods: {
+    tableData: function tableData(data) {
+      if (!_.isNil(data)) {
+        return data.administrators;
+      } else {
+        return [];
+      }
+    },
+    handleEdit: function handleEdit(index, row) {//
+    },
+    handleDelete: function handleDelete(index, row) {// 
+    },
+    createAdmin: function createAdmin() {//
+    }
+  }
 });
 
 /***/ }),
@@ -9688,6 +9738,63 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/vue/views/admin/Fields.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/vue/views/admin/Fields.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'fields',
+  methods: {
+    tableData: function tableData(data) {
+      if (!_.isNil(data)) {
+        return data.fields;
+      } else {
+        return [];
+      }
+    },
+    handleEdit: function handleEdit(index, row) {//
+    },
+    handleDelete: function handleDelete(index, row) {// 
+    },
+    createField: function createField() {//
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/vue/views/admin/Messages.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/vue/views/admin/Messages.vue?vue&type=script&lang=js& ***!
@@ -9703,6 +9810,123 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Messages'
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/vue/views/admin/MySchool.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/vue/views/admin/MySchool.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_validation_rules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/validation-rules */ "./resources/assets/vue/utils/validation-rules.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'MySchool',
+  data: function data() {
+    return {
+      schoolID: null,
+      school: {
+        name: '',
+        description: '',
+        information: '',
+        active: false
+      },
+      rules: {
+        name: [_utils_validation_rules__WEBPACK_IMPORTED_MODULE_1__["default"].getRule("requiredNoWhitespaces"), _utils_validation_rules__WEBPACK_IMPORTED_MODULE_1__["default"].getRule("maxVarchar")]
+      }
+    };
+  },
+  created: function created() {
+    this.schoolID = this.$store.getters['security/getUser'].school_id;
+    this.getSchool(this.schoolID);
+  },
+  methods: {
+    getSchool: function getSchool(schoolID) {
+      var _this = this;
+
+      var loading = this.$loading({
+        lock: true
+      });
+      this.$apollo.query({
+        query: __webpack_require__(/*! ../../graphql/school/school.gql */ "./resources/assets/vue/graphql/school/school.gql"),
+        variables: {
+          id: schoolID
+        }
+      }).then(function (response) {
+        if (response && response.data) {
+          _this.school = response.data.school;
+        }
+      })["finally"](function () {
+        loading.close();
+      });
+    },
+    submitForm: function submitForm(formName) {
+      var _this2 = this;
+
+      this.$refs[formName].validate(function (valid) {
+        if (valid) {
+          var loading = _this2.$loading({
+            lock: true
+          });
+
+          _this2.$apollo.mutate({
+            mutation: __webpack_require__(/*! ../../graphql/school/saveSchool.gql */ "./resources/assets/vue/graphql/school/saveSchool.gql"),
+            variables: {
+              input: {
+                id: _this2.schoolID,
+                name: _this2.school.name,
+                description: _this2.school.description,
+                information: _this2.school.information,
+                video: '',
+                active: _this2.school.active
+              }
+            }
+          }).then(function () {
+            _this2.$router.go(0);
+          })["finally"](function () {
+            loading.close();
+          });
+        }
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -9953,8 +10177,55 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Trainings'
+  name: 'trainings',
+  computed: {
+    schoolID: function schoolID() {
+      return this.$store.getters['security/getUser'].school_id;
+    }
+  },
+  methods: {
+    tableData: function tableData(data) {
+      if (!_.isNil(data)) {
+        return data.trainings;
+      } else {
+        return [];
+      }
+    },
+    handleEdit: function handleEdit(index, row) {//
+    },
+    handleDelete: function handleDelete(index, row) {// 
+    },
+    create: function create() {//
+    }
+  }
 });
 
 /***/ }),
@@ -97203,22 +97474,43 @@ var render = function() {
               )
             : _vm._e(),
           _vm._v(" "),
-          _c(
-            "el-menu-item",
-            {
-              class: { current: _vm.isRoute("tranings") },
-              on: {
-                click: function($event) {
-                  return _vm.navigateToMenu("tranings")
-                }
-              }
-            },
-            [
-              _c("i", { staticClass: "el-icon-edit-outline" }),
-              _vm._v(" "),
-              _c("span", [_vm._v("Traninings")])
-            ]
-          ),
+          _vm.isSuperAdmin
+            ? _c(
+                "el-menu-item",
+                {
+                  class: { current: _vm.isRoute("fields") },
+                  on: {
+                    click: function($event) {
+                      return _vm.navigateToMenu("fields")
+                    }
+                  }
+                },
+                [
+                  _c("i", { staticClass: "el-icon-edit-outline" }),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("Tranining Fields")])
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.isSchoolAdmin
+            ? _c(
+                "el-menu-item",
+                {
+                  class: { current: _vm.isRoute("tranings") },
+                  on: {
+                    click: function($event) {
+                      return _vm.navigateToMenu("tranings")
+                    }
+                  }
+                },
+                [
+                  _c("i", { staticClass: "el-icon-edit-outline" }),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("Traninings")])
+                ]
+              )
+            : _vm._e(),
           _vm._v(" "),
           _vm.isSchoolAdmin
             ? _c(
@@ -97720,7 +98012,169 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("p", [_vm._v("Administrators list")])
+  return _c(
+    "div",
+    { staticClass: "administrators text-center" },
+    [
+      _c("h2", [_vm._v("Administrators")]),
+      _vm._v(" "),
+      _c("ApolloQuery", {
+        attrs: { query: __webpack_require__(/*! ../../graphql/user/administrators.gql */ "./resources/assets/vue/graphql/user/administrators.gql") },
+        scopedSlots: _vm._u([
+          {
+            key: "default",
+            fn: function(ref) {
+              var ref_result = ref.result
+              var loading = ref_result.loading
+              var error = ref_result.error
+              var data = ref_result.data
+              var isLoading = ref.isLoading
+              return [
+                error
+                  ? _c("div", [_vm._v("Une erreur est survenue !")])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "el-table",
+                  {
+                    directives: [
+                      {
+                        name: "loading",
+                        rawName: "v-loading",
+                        value: isLoading === 1,
+                        expression: "isLoading === 1"
+                      }
+                    ],
+                    staticStyle: { width: "100%" },
+                    attrs: { data: _vm.tableData(data) }
+                  },
+                  [
+                    _c("el-table-column", {
+                      attrs: {
+                        "column-key": "email",
+                        prop: "email",
+                        label: "Email"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("el-table-column", {
+                      attrs: { "column-key": "nom", prop: "nom", label: "Nom" }
+                    }),
+                    _vm._v(" "),
+                    _c("el-table-column", {
+                      attrs: {
+                        "column-key": "prenom",
+                        prop: "prenom",
+                        label: "Prenom"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("el-table-column", {
+                      attrs: {
+                        "column-key": "role",
+                        prop: "role",
+                        label: "Role",
+                        width: "150px",
+                        align: "center"
+                      },
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "default",
+                            fn: function(scope) {
+                              return [
+                                scope.row.role == "super admin"
+                                  ? _c(
+                                      "el-tag",
+                                      { attrs: { type: "danger" } },
+                                      [_vm._v("Super Administrator")]
+                                    )
+                                  : _c("el-tag", [
+                                      _vm._v("School Administrator")
+                                    ])
+                              ]
+                            }
+                          }
+                        ],
+                        null,
+                        true
+                      )
+                    }),
+                    _vm._v(" "),
+                    _c("el-table-column", {
+                      attrs: { width: "180px" },
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "default",
+                            fn: function(scope) {
+                              return [
+                                _c(
+                                  "el-button",
+                                  {
+                                    staticClass: "ml-0",
+                                    attrs: { size: "mini", type: "primary" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.handleEdit(
+                                          scope.$index,
+                                          scope.row
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Edit")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "el-button",
+                                  {
+                                    staticClass: "ml-0",
+                                    attrs: { size: "mini", type: "danger" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.handleDelete(
+                                          scope.$index,
+                                          scope.row
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Delete")]
+                                )
+                              ]
+                            }
+                          }
+                        ],
+                        null,
+                        true
+                      )
+                    })
+                  ],
+                  1
+                )
+              ]
+            }
+          }
+        ])
+      }),
+      _vm._v(" "),
+      _c(
+        "el-button",
+        {
+          staticClass: "mt-2",
+          attrs: { type: "primary" },
+          on: {
+            click: function($event) {
+              return _vm.createAdmin()
+            }
+          }
+        },
+        [_vm._v("Create administrator")]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -97777,6 +98231,148 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/vue/views/admin/Fields.vue?vue&type=template&id=71bd3272&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/vue/views/admin/Fields.vue?vue&type=template&id=71bd3272& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "administrators text-center" },
+    [
+      _c("h2", [_vm._v("Training Fields")]),
+      _vm._v(" "),
+      _c("ApolloQuery", {
+        attrs: { query: __webpack_require__(/*! ../../graphql/field/fields.gql */ "./resources/assets/vue/graphql/field/fields.gql") },
+        scopedSlots: _vm._u([
+          {
+            key: "default",
+            fn: function(ref) {
+              var ref_result = ref.result
+              var loading = ref_result.loading
+              var error = ref_result.error
+              var data = ref_result.data
+              var isLoading = ref.isLoading
+              return [
+                error
+                  ? _c("div", [_vm._v("Une erreur est survenue !")])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "el-table",
+                  {
+                    directives: [
+                      {
+                        name: "loading",
+                        rawName: "v-loading",
+                        value: isLoading === 1,
+                        expression: "isLoading === 1"
+                      }
+                    ],
+                    staticStyle: { width: "100%" },
+                    attrs: { data: _vm.tableData(data) }
+                  },
+                  [
+                    _c("el-table-column", {
+                      attrs: {
+                        "column-key": "name",
+                        prop: "name",
+                        label: "Name"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("el-table-column", {
+                      attrs: { width: "180px" },
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "default",
+                            fn: function(scope) {
+                              return [
+                                _c(
+                                  "el-button",
+                                  {
+                                    staticClass: "ml-0",
+                                    attrs: { size: "mini", type: "primary" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.handleEdit(
+                                          scope.$index,
+                                          scope.row
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Edit")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "el-button",
+                                  {
+                                    staticClass: "ml-0",
+                                    attrs: { size: "mini", type: "danger" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.handleDelete(
+                                          scope.$index,
+                                          scope.row
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Delete")]
+                                )
+                              ]
+                            }
+                          }
+                        ],
+                        null,
+                        true
+                      )
+                    })
+                  ],
+                  1
+                )
+              ]
+            }
+          }
+        ])
+      }),
+      _vm._v(" "),
+      _c(
+        "el-button",
+        {
+          staticClass: "mt-2",
+          attrs: { type: "primary" },
+          on: {
+            click: function($event) {
+              return _vm.createField()
+            }
+          }
+        },
+        [_vm._v("Create field")]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/vue/views/admin/Messages.vue?vue&type=template&id=7bb0c25a&":
 /*!********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/vue/views/admin/Messages.vue?vue&type=template&id=7bb0c25a& ***!
@@ -97793,6 +98389,143 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("p", [_vm._v("Messages list")])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/vue/views/admin/MySchool.vue?vue&type=template&id=41bce964&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/vue/views/admin/MySchool.vue?vue&type=template&id=41bce964& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "el-form",
+        {
+          ref: "schoolForm",
+          attrs: { model: _vm.school, "label-width": "120px", rules: _vm.rules }
+        },
+        [
+          _c(
+            "el-form-item",
+            { attrs: { label: "Name", prop: "name" } },
+            [
+              _c("el-input", {
+                attrs: { type: "text", autocomplete: "off" },
+                model: {
+                  value: _vm.school.name,
+                  callback: function($$v) {
+                    _vm.$set(_vm.school, "name", $$v)
+                  },
+                  expression: "school.name"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-form-item",
+            { attrs: { label: "Description", prop: "description" } },
+            [
+              _c("el-input", {
+                attrs: {
+                  type: "textarea",
+                  autosize: { minRows: 5, maxRows: 10 },
+                  autocomplete: "off"
+                },
+                model: {
+                  value: _vm.school.description,
+                  callback: function($$v) {
+                    _vm.$set(_vm.school, "description", $$v)
+                  },
+                  expression: "school.description"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-form-item",
+            { attrs: { label: "Other information", prop: "information" } },
+            [
+              _c("el-input", {
+                attrs: {
+                  type: "textarea",
+                  autosize: { minRows: 5, maxRows: 10 },
+                  autocomplete: "off"
+                },
+                model: {
+                  value: _vm.school.information,
+                  callback: function($$v) {
+                    _vm.$set(_vm.school, "information", $$v)
+                  },
+                  expression: "school.information"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-form-item",
+            { attrs: { label: "Status", prop: "active" } },
+            [
+              _vm.school.active
+                ? _c("el-tag", { attrs: { type: "success" } }, [
+                    _vm._v("Activated")
+                  ])
+                : _c("el-tag", { attrs: { type: "danger" } }, [
+                    _vm._v("Deactivated")
+                  ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("el-form-item", [
+            _c(
+              "div",
+              { staticClass: "d-flex justify-content-end mt-4" },
+              [
+                _c(
+                  "el-button",
+                  {
+                    attrs: { type: "primary" },
+                    on: {
+                      click: function($event) {
+                        return _vm.submitForm("schoolForm")
+                      }
+                    }
+                  },
+                  [_vm._v("Save")]
+                )
+              ],
+              1
+            )
+          ])
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -98194,7 +98927,138 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("p", [_vm._v("Trainings list")])
+  return _c(
+    "div",
+    { staticClass: "administrators text-center" },
+    [
+      _c("h2", [_vm._v("Training Courses")]),
+      _vm._v(" "),
+      _c("ApolloQuery", {
+        attrs: {
+          query: __webpack_require__(/*! ../../graphql/training/trainings.gql */ "./resources/assets/vue/graphql/training/trainings.gql"),
+          variables: {
+            school_id: _vm.schoolID
+          }
+        },
+        scopedSlots: _vm._u([
+          {
+            key: "default",
+            fn: function(ref) {
+              var ref_result = ref.result
+              var loading = ref_result.loading
+              var error = ref_result.error
+              var data = ref_result.data
+              var isLoading = ref.isLoading
+              return [
+                error
+                  ? _c("div", [_vm._v("Une erreur est survenue !")])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "el-table",
+                  {
+                    directives: [
+                      {
+                        name: "loading",
+                        rawName: "v-loading",
+                        value: isLoading === 1,
+                        expression: "isLoading === 1"
+                      }
+                    ],
+                    staticStyle: { width: "100%" },
+                    attrs: { data: _vm.tableData(data) }
+                  },
+                  [
+                    _c("el-table-column", {
+                      attrs: {
+                        "column-key": "label",
+                        prop: "label",
+                        label: "Label"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("el-table-column", {
+                      attrs: {
+                        "column-key": "description",
+                        prop: "description",
+                        label: "Description"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("el-table-column", {
+                      attrs: { width: "180px" },
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "default",
+                            fn: function(scope) {
+                              return [
+                                _c(
+                                  "el-button",
+                                  {
+                                    staticClass: "ml-0",
+                                    attrs: { size: "mini", type: "primary" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.handleEdit(
+                                          scope.$index,
+                                          scope.row
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Edit")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "el-button",
+                                  {
+                                    staticClass: "ml-0",
+                                    attrs: { size: "mini", type: "danger" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.handleDelete(
+                                          scope.$index,
+                                          scope.row
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Delete")]
+                                )
+                              ]
+                            }
+                          }
+                        ],
+                        null,
+                        true
+                      )
+                    })
+                  ],
+                  1
+                )
+              ]
+            }
+          }
+        ])
+      }),
+      _vm._v(" "),
+      _c(
+        "el-button",
+        {
+          staticClass: "mt-2",
+          attrs: { type: "primary" },
+          on: {
+            click: function($event) {
+              return _vm.create()
+            }
+          }
+        },
+        [_vm._v("Create training course")]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -115990,6 +116854,139 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/assets/vue/graphql/field/fields.gql":
+/*!*******************************************************!*\
+  !*** ./resources/assets/vue/graphql/field/fields.gql ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"fields"},"variableDefinitions":[],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fields"},"arguments":[],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"name"},"arguments":[],"directives":[]}]}}]}}],"loc":{"start":0,"end":59}};
+    doc.loc.source = {"body":"query fields {\n    fields {\n        id\n        name\n    }\n}","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
+  
+
+    var names = {};
+    function unique(defs) {
+      return defs.filter(
+        function(def) {
+          if (def.kind !== 'FragmentDefinition') return true;
+          var name = def.name.value
+          if (names[name]) {
+            return false;
+          } else {
+            names[name] = true;
+            return true;
+          }
+        }
+      )
+    }
+  
+
+    // Collect any fragment/type references from a node, adding them to the refs Set
+    function collectFragmentReferences(node, refs) {
+      if (node.kind === "FragmentSpread") {
+        refs.add(node.name.value);
+      } else if (node.kind === "VariableDefinition") {
+        var type = node.type;
+        if (type.kind === "NamedType") {
+          refs.add(type.name.value);
+        }
+      }
+
+      if (node.selectionSet) {
+        node.selectionSet.selections.forEach(function(selection) {
+          collectFragmentReferences(selection, refs);
+        });
+      }
+
+      if (node.variableDefinitions) {
+        node.variableDefinitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+
+      if (node.definitions) {
+        node.definitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+    }
+
+    var definitionRefs = {};
+    (function extractReferences() {
+      doc.definitions.forEach(function(def) {
+        if (def.name) {
+          var refs = new Set();
+          collectFragmentReferences(def, refs);
+          definitionRefs[def.name.value] = refs;
+        }
+      });
+    })();
+
+    function findOperation(doc, name) {
+      for (var i = 0; i < doc.definitions.length; i++) {
+        var element = doc.definitions[i];
+        if (element.name && element.name.value == name) {
+          return element;
+        }
+      }
+    }
+
+    function oneQuery(doc, operationName) {
+      // Copy the DocumentNode, but clear out the definitions
+      var newDoc = {
+        kind: doc.kind,
+        definitions: [findOperation(doc, operationName)]
+      };
+      if (doc.hasOwnProperty("loc")) {
+        newDoc.loc = doc.loc;
+      }
+
+      // Now, for the operation we're running, find any fragments referenced by
+      // it or the fragments it references
+      var opRefs = definitionRefs[operationName] || new Set();
+      var allRefs = new Set();
+      var newRefs = new Set();
+
+      // IE 11 doesn't support "new Set(iterable)", so we add the members of opRefs to newRefs one by one
+      opRefs.forEach(function(refName) {
+        newRefs.add(refName);
+      });
+
+      while (newRefs.size > 0) {
+        var prevRefs = newRefs;
+        newRefs = new Set();
+
+        prevRefs.forEach(function(refName) {
+          if (!allRefs.has(refName)) {
+            allRefs.add(refName);
+            var childRefs = definitionRefs[refName] || new Set();
+            childRefs.forEach(function(childRef) {
+              newRefs.add(childRef);
+            });
+          }
+        });
+      }
+
+      allRefs.forEach(function(refName) {
+        var op = findOperation(doc, refName);
+        if (op) {
+          newDoc.definitions.push(op);
+        }
+      });
+
+      return newDoc;
+    }
+
+    module.exports = doc;
+    
+        module.exports["fields"] = oneQuery(doc, "fields");
+        
+
+
+/***/ }),
+
 /***/ "./resources/assets/vue/graphql/school/deleteSchool.gql":
 /*!**************************************************************!*\
   !*** ./resources/assets/vue/graphql/school/deleteSchool.gql ***!
@@ -116522,6 +117519,272 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/assets/vue/graphql/training/trainings.gql":
+/*!*************************************************************!*\
+  !*** ./resources/assets/vue/graphql/training/trainings.gql ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"trainings"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"school_id"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}},"directives":[]}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"trainings"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"school_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"school_id"}}}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"label"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"description"},"arguments":[],"directives":[]}]}}]}}],"loc":{"start":0,"end":126}};
+    doc.loc.source = {"body":"query trainings($school_id: Int) {\n    trainings(school_id: $school_id) {\n        id\n        label\n        description\n    }\n}","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
+  
+
+    var names = {};
+    function unique(defs) {
+      return defs.filter(
+        function(def) {
+          if (def.kind !== 'FragmentDefinition') return true;
+          var name = def.name.value
+          if (names[name]) {
+            return false;
+          } else {
+            names[name] = true;
+            return true;
+          }
+        }
+      )
+    }
+  
+
+    // Collect any fragment/type references from a node, adding them to the refs Set
+    function collectFragmentReferences(node, refs) {
+      if (node.kind === "FragmentSpread") {
+        refs.add(node.name.value);
+      } else if (node.kind === "VariableDefinition") {
+        var type = node.type;
+        if (type.kind === "NamedType") {
+          refs.add(type.name.value);
+        }
+      }
+
+      if (node.selectionSet) {
+        node.selectionSet.selections.forEach(function(selection) {
+          collectFragmentReferences(selection, refs);
+        });
+      }
+
+      if (node.variableDefinitions) {
+        node.variableDefinitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+
+      if (node.definitions) {
+        node.definitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+    }
+
+    var definitionRefs = {};
+    (function extractReferences() {
+      doc.definitions.forEach(function(def) {
+        if (def.name) {
+          var refs = new Set();
+          collectFragmentReferences(def, refs);
+          definitionRefs[def.name.value] = refs;
+        }
+      });
+    })();
+
+    function findOperation(doc, name) {
+      for (var i = 0; i < doc.definitions.length; i++) {
+        var element = doc.definitions[i];
+        if (element.name && element.name.value == name) {
+          return element;
+        }
+      }
+    }
+
+    function oneQuery(doc, operationName) {
+      // Copy the DocumentNode, but clear out the definitions
+      var newDoc = {
+        kind: doc.kind,
+        definitions: [findOperation(doc, operationName)]
+      };
+      if (doc.hasOwnProperty("loc")) {
+        newDoc.loc = doc.loc;
+      }
+
+      // Now, for the operation we're running, find any fragments referenced by
+      // it or the fragments it references
+      var opRefs = definitionRefs[operationName] || new Set();
+      var allRefs = new Set();
+      var newRefs = new Set();
+
+      // IE 11 doesn't support "new Set(iterable)", so we add the members of opRefs to newRefs one by one
+      opRefs.forEach(function(refName) {
+        newRefs.add(refName);
+      });
+
+      while (newRefs.size > 0) {
+        var prevRefs = newRefs;
+        newRefs = new Set();
+
+        prevRefs.forEach(function(refName) {
+          if (!allRefs.has(refName)) {
+            allRefs.add(refName);
+            var childRefs = definitionRefs[refName] || new Set();
+            childRefs.forEach(function(childRef) {
+              newRefs.add(childRef);
+            });
+          }
+        });
+      }
+
+      allRefs.forEach(function(refName) {
+        var op = findOperation(doc, refName);
+        if (op) {
+          newDoc.definitions.push(op);
+        }
+      });
+
+      return newDoc;
+    }
+
+    module.exports = doc;
+    
+        module.exports["trainings"] = oneQuery(doc, "trainings");
+        
+
+
+/***/ }),
+
+/***/ "./resources/assets/vue/graphql/user/administrators.gql":
+/*!**************************************************************!*\
+  !*** ./resources/assets/vue/graphql/user/administrators.gql ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"administrators"},"variableDefinitions":[],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"administrators"},"arguments":[],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"email"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"role"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"nom"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"prenom"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"birthday"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"gender"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"telephone"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"nationality"},"arguments":[],"directives":[]}]}}]}}],"loc":{"start":0,"end":186}};
+    doc.loc.source = {"body":"query administrators {\n    administrators {\n        id\n        email\n        role\n        nom\n        prenom\n        birthday\n        gender\n        telephone\n        nationality\n    }\n}","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
+  
+
+    var names = {};
+    function unique(defs) {
+      return defs.filter(
+        function(def) {
+          if (def.kind !== 'FragmentDefinition') return true;
+          var name = def.name.value
+          if (names[name]) {
+            return false;
+          } else {
+            names[name] = true;
+            return true;
+          }
+        }
+      )
+    }
+  
+
+    // Collect any fragment/type references from a node, adding them to the refs Set
+    function collectFragmentReferences(node, refs) {
+      if (node.kind === "FragmentSpread") {
+        refs.add(node.name.value);
+      } else if (node.kind === "VariableDefinition") {
+        var type = node.type;
+        if (type.kind === "NamedType") {
+          refs.add(type.name.value);
+        }
+      }
+
+      if (node.selectionSet) {
+        node.selectionSet.selections.forEach(function(selection) {
+          collectFragmentReferences(selection, refs);
+        });
+      }
+
+      if (node.variableDefinitions) {
+        node.variableDefinitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+
+      if (node.definitions) {
+        node.definitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+    }
+
+    var definitionRefs = {};
+    (function extractReferences() {
+      doc.definitions.forEach(function(def) {
+        if (def.name) {
+          var refs = new Set();
+          collectFragmentReferences(def, refs);
+          definitionRefs[def.name.value] = refs;
+        }
+      });
+    })();
+
+    function findOperation(doc, name) {
+      for (var i = 0; i < doc.definitions.length; i++) {
+        var element = doc.definitions[i];
+        if (element.name && element.name.value == name) {
+          return element;
+        }
+      }
+    }
+
+    function oneQuery(doc, operationName) {
+      // Copy the DocumentNode, but clear out the definitions
+      var newDoc = {
+        kind: doc.kind,
+        definitions: [findOperation(doc, operationName)]
+      };
+      if (doc.hasOwnProperty("loc")) {
+        newDoc.loc = doc.loc;
+      }
+
+      // Now, for the operation we're running, find any fragments referenced by
+      // it or the fragments it references
+      var opRefs = definitionRefs[operationName] || new Set();
+      var allRefs = new Set();
+      var newRefs = new Set();
+
+      // IE 11 doesn't support "new Set(iterable)", so we add the members of opRefs to newRefs one by one
+      opRefs.forEach(function(refName) {
+        newRefs.add(refName);
+      });
+
+      while (newRefs.size > 0) {
+        var prevRefs = newRefs;
+        newRefs = new Set();
+
+        prevRefs.forEach(function(refName) {
+          if (!allRefs.has(refName)) {
+            allRefs.add(refName);
+            var childRefs = definitionRefs[refName] || new Set();
+            childRefs.forEach(function(childRef) {
+              newRefs.add(childRef);
+            });
+          }
+        });
+      }
+
+      allRefs.forEach(function(refName) {
+        var op = findOperation(doc, refName);
+        if (op) {
+          newDoc.definitions.push(op);
+        }
+      });
+
+      return newDoc;
+    }
+
+    module.exports = doc;
+    
+        module.exports["administrators"] = oneQuery(doc, "administrators");
+        
+
+
+/***/ }),
+
 /***/ "./resources/assets/vue/router/index.js":
 /*!**********************************************!*\
   !*** ./resources/assets/vue/router/index.js ***!
@@ -116547,6 +117810,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_admin_Dashboard__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../views/admin/Dashboard */ "./resources/assets/vue/views/admin/Dashboard.vue");
 /* harmony import */ var _views_admin_School__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../views/admin/School */ "./resources/assets/vue/views/admin/School.vue");
 /* harmony import */ var _views_admin_Administrators__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../views/admin/Administrators */ "./resources/assets/vue/views/admin/Administrators.vue");
+/* harmony import */ var _views_admin_Fields__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../views/admin/Fields */ "./resources/assets/vue/views/admin/Fields.vue");
+/* harmony import */ var _views_admin_MySchool__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../views/admin/MySchool */ "./resources/assets/vue/views/admin/MySchool.vue");
+
+
 
 
 
@@ -116595,7 +117862,10 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       component: _views_admin_School__WEBPACK_IMPORTED_MODULE_13__["default"]
     }, {
       path: 'school-profile',
-      component: _views_admin_School__WEBPACK_IMPORTED_MODULE_13__["default"]
+      component: _views_admin_MySchool__WEBPACK_IMPORTED_MODULE_16__["default"]
+    }, {
+      path: 'fields',
+      component: _views_admin_Fields__WEBPACK_IMPORTED_MODULE_15__["default"]
     }, {
       path: 'tranings',
       component: _views_admin_Trainings__WEBPACK_IMPORTED_MODULE_9__["default"]
@@ -117437,6 +118707,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/assets/vue/views/admin/Fields.vue":
+/*!*****************************************************!*\
+  !*** ./resources/assets/vue/views/admin/Fields.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Fields_vue_vue_type_template_id_71bd3272___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Fields.vue?vue&type=template&id=71bd3272& */ "./resources/assets/vue/views/admin/Fields.vue?vue&type=template&id=71bd3272&");
+/* harmony import */ var _Fields_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Fields.vue?vue&type=script&lang=js& */ "./resources/assets/vue/views/admin/Fields.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Fields_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Fields_vue_vue_type_template_id_71bd3272___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Fields_vue_vue_type_template_id_71bd3272___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/assets/vue/views/admin/Fields.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/vue/views/admin/Fields.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/assets/vue/views/admin/Fields.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Fields_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Fields.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/vue/views/admin/Fields.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Fields_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/vue/views/admin/Fields.vue?vue&type=template&id=71bd3272&":
+/*!************************************************************************************!*\
+  !*** ./resources/assets/vue/views/admin/Fields.vue?vue&type=template&id=71bd3272& ***!
+  \************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Fields_vue_vue_type_template_id_71bd3272___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Fields.vue?vue&type=template&id=71bd3272& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/vue/views/admin/Fields.vue?vue&type=template&id=71bd3272&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Fields_vue_vue_type_template_id_71bd3272___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Fields_vue_vue_type_template_id_71bd3272___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/assets/vue/views/admin/Messages.vue":
 /*!*******************************************************!*\
   !*** ./resources/assets/vue/views/admin/Messages.vue ***!
@@ -117501,6 +118840,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Messages_vue_vue_type_template_id_7bb0c25a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Messages_vue_vue_type_template_id_7bb0c25a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/assets/vue/views/admin/MySchool.vue":
+/*!*******************************************************!*\
+  !*** ./resources/assets/vue/views/admin/MySchool.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MySchool_vue_vue_type_template_id_41bce964___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MySchool.vue?vue&type=template&id=41bce964& */ "./resources/assets/vue/views/admin/MySchool.vue?vue&type=template&id=41bce964&");
+/* harmony import */ var _MySchool_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MySchool.vue?vue&type=script&lang=js& */ "./resources/assets/vue/views/admin/MySchool.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _MySchool_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MySchool_vue_vue_type_template_id_41bce964___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _MySchool_vue_vue_type_template_id_41bce964___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/assets/vue/views/admin/MySchool.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/vue/views/admin/MySchool.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/assets/vue/views/admin/MySchool.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MySchool_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./MySchool.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/vue/views/admin/MySchool.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MySchool_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/vue/views/admin/MySchool.vue?vue&type=template&id=41bce964&":
+/*!**************************************************************************************!*\
+  !*** ./resources/assets/vue/views/admin/MySchool.vue?vue&type=template&id=41bce964& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MySchool_vue_vue_type_template_id_41bce964___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./MySchool.vue?vue&type=template&id=41bce964& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/vue/views/admin/MySchool.vue?vue&type=template&id=41bce964&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MySchool_vue_vue_type_template_id_41bce964___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MySchool_vue_vue_type_template_id_41bce964___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

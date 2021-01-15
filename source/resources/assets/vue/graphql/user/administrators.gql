@@ -1,0 +1,13 @@
+query administrators {
+    administrators {
+        id
+        email
+        role
+        nom
+        prenom
+        birthday
+        gender
+        telephone
+        nationality
+    }
+}

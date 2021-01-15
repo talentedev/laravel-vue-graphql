@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use App\Models\School;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -59,5 +60,13 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    /**
+     * Get the school that owns the user.
+     */
+    public function school()
+    {
+        return $this->belongsTo(School::class);
     }
 }

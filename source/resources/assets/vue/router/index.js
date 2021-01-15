@@ -14,6 +14,8 @@ import Messages from '../views/admin/Messages';
 import Dashboard from '../views/admin/Dashboard';
 import School from '../views/admin/School';
 import Administrators from '../views/admin/Administrators';
+import Fields from '../views/admin/Fields';
+import MySchool from '../views/admin/MySchool';
 
 Vue.use(VueRouter);
 
@@ -39,7 +41,8 @@ let router = new VueRouter({
                 { path: 'applications', component: Applications },
                 { path: 'schools', component: Schools },
                 { path: 'schools/detail/:id?', component: School },
-                { path: 'school-profile', component: School },
+                { path: 'school-profile', component: MySchool },
+                { path: 'fields', component: Fields },
                 { path: 'tranings', component: Trainings },
                 { path: 'administrators', component: Administrators },
                 { path: 'news', component: News },

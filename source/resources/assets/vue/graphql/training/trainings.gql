@@ -1,0 +1,7 @@
+query trainings($school_id: Int) {
+    trainings(school_id: $school_id) {
+        id
+        label
+        description
+    }
+}

@@ -16,7 +16,11 @@
                 <i class="el-icon-school"></i>
                 <span>My School</span>
             </el-menu-item>
-            <el-menu-item :class="{'current': isRoute('tranings')}" @click="navigateToMenu('tranings')">
+            <el-menu-item v-if="isSuperAdmin" :class="{'current': isRoute('fields')}" @click="navigateToMenu('fields')">
+                <i class="el-icon-edit-outline"></i>
+                <span>Tranining Fields</span>
+            </el-menu-item>
+            <el-menu-item v-if="isSchoolAdmin" :class="{'current': isRoute('tranings')}" @click="navigateToMenu('tranings')">
                 <i class="el-icon-edit-outline"></i>
                 <span>Traninings</span>
             </el-menu-item>

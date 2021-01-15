@@ -1,0 +1,6 @@
+query fields {
+    fields {
+        id
+        name
+    }
+}

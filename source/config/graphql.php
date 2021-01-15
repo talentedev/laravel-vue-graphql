@@ -103,7 +103,10 @@ return [
             'query' => [
                 'profile' => App\GraphQL\Queries\ProfileQuery::class,
                 'fetchSchools' => App\GraphQL\Queries\SchoolsQuery::class,
-                'school' => App\GraphQL\Queries\SchoolQuery::class
+                'school' => App\GraphQL\Queries\SchoolQuery::class,
+                'administrators' => App\GraphQL\Queries\AdministratorsQuery::class,
+                'fields' => App\GraphQL\Queries\FieldsQuery::class,
+                'trainings' => App\GraphQL\Queries\TrainingsQuery::class,
             ],
             'mutation' => [
                 'saveSchool' => App\GraphQL\Mutations\SaveSchoolMutation::class,
@@ -126,7 +129,9 @@ return [
     'types' => [
         'User' => App\GraphQL\Types\UserType::class,
         'School' => App\GraphQL\Types\SchoolType::class,
-        'SchoolInput' => App\GraphQL\Types\SchoolInputType::class
+        'SchoolInput' => App\GraphQL\Types\SchoolInputType::class,
+        'Field' => App\GraphQL\Types\FieldType::class,
+        'Training' => App\GraphQL\Types\TrainingType::class,
     ],
 
     // The types will be loaded on demand. Default is to load all types on each request
