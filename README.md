@@ -1,10 +1,4 @@
-# Docker - Laravel
-
-![Docker](https://github.com/supermavster/docker-laravel-8/workflows/Docker/badge.svg)
-
-![Image](https://repository-images.githubusercontent.com/309769351/1c0dfc80-1def-11eb-9e5c-641da3e3c9b4)
-
-A pretty simplified Docker Compose workflow that sets up a LEMP (Linux, NGINX, MySQL, PHP) network of containers for local Laravel development.
+# Scoleia Web App
 
 ## Ports
 
@@ -34,12 +28,10 @@ To get started, make sure you have [Docker installed](https://docs.docker.com/) 
    cp .env.example .env
    ```
 
-3. You need **Create** or **Put** your laravel project in the folder source; to create follow the next instructions [Here](source/README.md).
-
-4. Build the project whit the next commands:
+3. Run the project whit the next commands:
 
    ```sh
-   docker-compose up --build
+   docker-compose up
    ```
 
 ---
@@ -80,26 +72,32 @@ DB_HOST=mysql
 
 ## Special Cases
 
-To Down and remove the volumes we use the next command:
+To Down the volumes we use the next command:
 
 ```sh
-docker-compose down -v
+docker-compose down
 ```
 
-Update Composer:
+Install Composer:
 
 ```sh
-docker-compose run --rm composer update
+docker-compose run composer install
 ```
 
 Run compiler (Webpack.mix.js) or Show the view compiler in node:
 
 ```sh
-docker-compose run --rm npm run dev
+docker-compose run npm run dev
 ```
 
 Run all migrations:
 
 ```sh
-docker-compose run --rm artisan migrate
+docker-compose run artisan migrate
+```
+
+Seed database:
+
+```sh
+docker-compose run artisan db:seed
 ```
